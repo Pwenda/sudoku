@@ -6,6 +6,8 @@ import main.java.fr.ynov.sudoku.solver.SudokuGrid;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SudokuPanel extends JPanel {
     private static final int GRID_SIZE = 9;
@@ -23,6 +25,7 @@ public class SudokuPanel extends JPanel {
         cellFields = new JTextField[GRID_SIZE][GRID_SIZE];
 
         initializeGrid();
+        addCellKeyListener();
         generateInitialGrid();
     }
 
@@ -115,5 +118,56 @@ public class SudokuPanel extends JPanel {
         }
 
         generateInitialGrid();
+    }
+
+    private void addCellKeyListener() {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                final int finalRow = row;
+                final int finalCol = col;
+
+                cellFields[row][col].addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        JTextField textField = cellFields[finalRow][finalCol];
+
+                        if (!textField.isEditable()) {
+                            e.consume();
+                            return;
+                        }
+
+                        char c = e.getKeyChar();
+
+                        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+                            return;
+                        }
+
+                        if (c < '1' || c > '9') {
+                            e.consume();
+                            return;
+                        }
+
+                        if (!textField.getText().isEmpty()) {
+                            e.consume();
+                        }
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                        JTextField textField = cellFields[finalRow][finalCol];
+
+                        if (textField.isEditable()) {
+                            String text = textField.getText();
+                            if (!text.isEmpty()) {
+                                int value = Integer.parseInt(text);
+                                board.setCell(finalRow, finalCol, value);
+                            } else {
+                                board.setCell(finalRow, finalCol, 0);
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
 }

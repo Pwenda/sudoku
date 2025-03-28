@@ -13,8 +13,15 @@ public class SudokuCell {
         return value;
     }
 
-    public void setValue(int value) {
+    public boolean setValue(int value) {
+        if (! isEditable){
+            return false;
+        }
+        if (!isValidInput(value)){
+            return false;
+        }
         this.value = value;
+        return true;
     }
 
     public boolean isEmpty() {
@@ -31,5 +38,8 @@ public class SudokuCell {
 
     public void setEditable(boolean editable) {
         isEditable = editable;
+    }
+    public static boolean isValidInput(int value) {
+        return value >= 0 && value <= 9;
     }
 }
