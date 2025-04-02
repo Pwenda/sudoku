@@ -15,25 +15,38 @@ public class SudokuPanel extends JPanel {
     private SudokuBoard board;
     private SudokuSolver solver;
     private SudokuGrid gridGenerator;
+    private static final int INITIAL_LIVES = 3;
+    private int lives;
+    private int[][] solution;
+    private JLabel livesLabel;
 
     public SudokuPanel() {
         board = new SudokuBoard();
         solver = new SudokuSolver();
         gridGenerator = new SudokuGrid();
+        lives = INITIAL_LIVES;
 
-        setLayout(new GridLayout(GRID_SIZE, GRID_SIZE));
+        livesLabel = new JLabel("Vies: " + lives);
+        livesLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+        setLayout(new BorderLayout());
+
+        JPanel gridPanel = new JPanel(new GridLayout(GRID_SIZE, GRID_SIZE));
         cellFields = new JTextField[GRID_SIZE][GRID_SIZE];
 
-        initializeGrid();
+        initializeGrid(gridPanel);
+        add(livesLabel, BorderLayout.NORTH);
+        add(gridPanel, BorderLayout.CENTER);
         addCellKeyListener();
         generateInitialGrid();
+
     }
 
-    private void initializeGrid() {
+    private void initializeGrid(JPanel gridPanel) {
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 cellFields[row][col] = createTextField(row, col);
-                add(cellFields[row][col]);
+                gridPanel.add(cellFields[row][col]);
             }
         }
     }
@@ -51,7 +64,9 @@ public class SudokuPanel extends JPanel {
     }
 
     private void generateInitialGrid() {
-        int[][] initialGrid = gridGenerator.generatePuzzleGrid();
+        solution = gridGenerator.generateFullSolution();
+
+        int[][] initialGrid = gridGenerator.createPuzzleFromSolution(solution);
 
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
@@ -63,6 +78,7 @@ public class SudokuPanel extends JPanel {
                 }
             }
         }
+        updateLivesLabel();
     }
 
     public void solve() {
@@ -108,11 +124,15 @@ public class SudokuPanel extends JPanel {
     }
 
     public void newGame() {
+        lives = INITIAL_LIVES;
+        updateLivesLabel();
+
         for (int row = 0; row < GRID_SIZE; row++) {
             for (int col = 0; col < GRID_SIZE; col++) {
                 cellFields[row][col].setText("");
                 cellFields[row][col].setEditable(true);
                 cellFields[row][col].setBackground(Color.WHITE);
+                cellFields[row][col].setForeground(Color.BLACK);
                 board.setCell(row, col, 0);
             }
         }
@@ -160,6 +180,20 @@ public class SudokuPanel extends JPanel {
                             String text = textField.getText();
                             if (!text.isEmpty()) {
                                 int value = Integer.parseInt(text);
+
+                                if (value != solution[finalRow][finalCol]) {
+                                    lives--;
+                                    updateLivesLabel();
+
+                                    textField.setForeground(Color.RED);
+
+                                    if (lives <= 0) {
+                                        gameOver();
+                                    }
+                                } else {
+                                    textField.setForeground(Color.BLUE);
+                                }
+
                                 board.setCell(finalRow, finalCol, value);
                             } else {
                                 board.setCell(finalRow, finalCol, 0);
@@ -167,6 +201,28 @@ public class SudokuPanel extends JPanel {
                         }
                     }
                 });
+            }
+        }
+    }
+    private void updateLivesLabel() {
+        livesLabel.setText("Vies: " + lives);
+    }
+    private void gameOver() {
+        JOptionPane.showMessageDialog(this,
+                "Vous avez perdu !",
+                "Game Over",
+                JOptionPane.ERROR_MESSAGE
+        );
+        revealSolution();
+    }
+    private void revealSolution() {
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                if (cellFields[row][col].isEditable()) {
+                    cellFields[row][col].setText(String.valueOf(solution[row][col]));
+                    cellFields[row][col].setEditable(false);
+                    board.setCell(row, col, solution[row][col]);
+                }
             }
         }
     }

@@ -114,5 +114,38 @@ public class SudokuGrid {
 
         return puzzleGrid;
     }
+    public int[][] generateFullSolution() {
+        int[][] fullGrid = new int[GRID_SIZE][GRID_SIZE];
+        fillGrid(fullGrid);
+        return fullGrid;
+    }
+
+    public int[][] createPuzzleFromSolution(int[][] solution) {
+        int[][] puzzleGrid = new int[GRID_SIZE][GRID_SIZE];
+        for (int i = 0; i < GRID_SIZE; i++) {
+            System.arraycopy(solution[i], 0, puzzleGrid[i], 0, GRID_SIZE);
+        }
+
+        int cellsToKeep = 25 + random.nextInt(10);
+        List<int[]> positions = new ArrayList<>();
+        for (int row = 0; row < GRID_SIZE; row++) {
+            for (int col = 0; col < GRID_SIZE; col++) {
+                positions.add(new int[]{row, col});
+            }
+        }
+
+        Collections.shuffle(positions);
+
+        int cellsRemoved = 0;
+        for (int[] pos : positions) {
+            if (cellsRemoved >= GRID_SIZE * GRID_SIZE - cellsToKeep) {
+                break;
+            }
+            puzzleGrid[pos[0]][pos[1]] = 0;
+            cellsRemoved++;
+        }
+
+        return puzzleGrid;
+    }
 
 }

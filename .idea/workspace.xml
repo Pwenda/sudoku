@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9dee308e-7687-431f-b4fe-be8d13fd0006" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/gui/SudokuFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/gui/SudokuFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/gui/SudokuPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/gui/SudokuPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/model/SudokuCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/model/SudokuCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/solver/SudokuGrid.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/fr/ynov/sudoku/solver/SudokuGrid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sudoku/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sudoku/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuFrame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuPanel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuPanel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/gui/SudokuPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/solver/SudokuGrid.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/sudoku/main/java/fr/ynov/sudoku/solver/SudokuGrid.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,11 +104,23 @@
       <option name="presentableId" value="Default" />
       <updated>1743071863017</updated>
       <workItem from="1743071864112" duration="5212000" />
-      <workItem from="1743087806854" duration="4306000" />
+      <workItem from="1743087806854" duration="6462000" />
+      <workItem from="1743612211734" duration="1128000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

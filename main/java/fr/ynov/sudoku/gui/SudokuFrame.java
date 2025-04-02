@@ -22,5 +22,11 @@ public class SudokuFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new SudokuFrame();
+        });
     }
 }
